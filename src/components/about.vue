@@ -8,9 +8,9 @@
   		{{i.name}} {{i.surname}}
   		{{index}}
   	</div>
-  	
+
   </div>
-  <button @click="reversetext()">Click me</button>
+  <button v-on:click="reverseMessage()">Click me</button>
   <p class="redfont">{{name}}</p>
   <input type="text" v-model="msg" name="">
   <h1>fff</h1>
@@ -42,8 +42,8 @@ export default {
     }
   },
   methods: {
-  	reversetext: function () {
-  		this.msg = '5555555'
+  	reverseMessage: function () {
+  		this.msg = this.msg.split('').reverse().join('')
   	}
   }
 }
@@ -54,4 +54,3 @@ export default {
 	color: red;
 }
 </style>
-
