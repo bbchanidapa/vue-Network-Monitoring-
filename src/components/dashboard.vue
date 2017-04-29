@@ -34,18 +34,18 @@
    <br>
      <canvas width="300" height="150" id="myDonutChart" class="chart"></canvas>
      <br><br>
-     <div class="col s2 font-switch" style="background-color:#0066ff;">SW4503</div>
-     <div class="col s3 font-switch"  style="background-color: #FFFFFF;">88.56 Gbps.</div>
-     <div class="col s2 font-switch" style="background-color:#949fb1;">Rshop</div>
-     <div class="col s3 font-switch"  style="background-color: #FFFFFF;">12.31 Gbps</div>
-     <div class="col s2 font-switch" style="background-color:#f7464a;">R124</div>
-     <div class="col s3 font-switch"  style="background-color: #FFFFFF;">88.56 Gbps.</div>
-     <div class="col s2 font-switch" style="background-color:#4d5360;">R415</div>
-     <div class="col s3 font-switch"  style="background-color: #FFFFFF;">88.56 Gbps.</div>
-     <div class="col s2 font-switch" style="background-color:#fdb45c;">R415</div>
-     <div class="col s3 font-switch"  style="background-color: #FFFFFF;">88.56 Gbps.</div>
-     <div class="col s2 font-switch" style="background-color:#46bfbd;">R101C</div>
-     <div class="col s3 font-switch"  style="background-color: #FFFFFF;">88.56 Gbps.</div>
+     <div class="col s2 font-switch" id="ex3" style="background-color:#0066ff;">SW4503</div>
+     <div class="col s6 font-switch"  style="background-color: #FFFFFF;">88.56 Gbps.</div>
+     <div class="col s2 font-switch" id="ex3" style="background-color:#949fb1;">Rshop</div>
+     <div class="col s6 font-switch"  style="background-color: #FFFFFF;">12.31 Gbps</div>
+     <div class="col s2 font-switch" id="ex3" style="background-color:#f7464a;">R124</div>
+     <div class="col s6 font-switch"  style="background-color: #FFFFFF;">88.56 Gbps.</div>
+     <div class="col s2 font-switch" id="ex3" style="background-color:#4d5360;">R415</div>
+     <div class="col s6 font-switch"  style="background-color: #FFFFFF;">88.56 Gbps.</div>
+     <div class="col s2 font-switch" id="ex3" style="background-color:#fdb45c;">R415</div>
+     <div class="col s6 font-switch"  style="background-color: #FFFFFF;">88.56 Gbps.</div>
+     <div class="col s2 font-switch" id="ex3" style="background-color:#46bfbd;">R101C</div>
+     <div class="col s6 font-switch"  style="background-color: #FFFFFF;">88.56 Gbps.</div>
    </div>
    </div>
 </div>
@@ -396,5 +396,8 @@ export default {
     div.ex2 {
     width:73px;
     background-color: #ffa1b5;
+    }
+    #ex3{
+    width:73px;
     }
 </style>
