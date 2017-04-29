@@ -1,5 +1,6 @@
 <template>
-<!-- <nav style="background-color: #00f1f1;">   
+
+<nav style="background-color: #00f1f1;">   
     <div >
       <a href="#" class="brand-logo" style="margin-left:50px;">FITM Monitoring v1.0</a>
       
@@ -13,26 +14,12 @@
       </ul>
      </div>
 
- </nav> -->
-  <div>
-  <p class="redfont">{{msg}}</p>
-  </div>
+ </nav>
 
 </template>
+<script type="text/javascript">
 
-<script>
-/*eslint-disable */
-export default {
-  data () {
-    return {
-      msg: 'This page is dashboard page',
-    }
-  }
-}
 </script>
-
 <style type="text/css">
-.redfont {
-	color: red;
-}
+	
 </style>
