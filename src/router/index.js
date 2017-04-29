@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
 import test from '@/components/test'
 import about from '@/components/about'
 import dashboard from '@/components/dashboard'
