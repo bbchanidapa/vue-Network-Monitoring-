@@ -1,14 +1,29 @@
 <template>
+
 <div class="container">
     <div class="row">
       <div class="col s12 m12 l12" id="top"></div>
-
-      <div class="col s12 m3 l2" >
+      <div class="col s12 m3 l2" id="">
         <ul class="collection" v-for="index in detail">
               <li class="collection-item">
-              <span class="title"><b>{{index.name}}</b> ({{index.ip}})</span> <br>        
-              Cpu: {{index.cpu}}% Temp: {{index.temp}}F
-            </li>
+                <span class="title"><b>{{index.name}}</b>({{index.ip}})</span>     
+                <div v-show="index.cpu< 60"><span id="cpu" style="background:#00d27f"> Cpu: </span>&ensp;{{index.cpu}}%</div>
+                <div v-show="index.cpu >= 60 && index.cpu < 85"><h6 id="cpu" style="background:#df4f15"> Cpu: </h6>&ensp;{{index.cpu}}%</div>
+                <div v-show="index.cpu >= 85 && index.cpu <= 100"><h6 id="cpu" style="background:#f44336"> Cpu: </h6>&ensp;{{index.cpu}}%</div>
+
+                <div v-show="index.temp < 38"><b id="temp" style="background:#b3ecec">Temp:</b> &ensp;{{index.temp}}F</div>
+                <div v-show="index.temp > 38"><b id="temp" style="background:red">Temp:</b> &ensp;{{index.temp}}F</div>
+              </li>
+              <!--  if(details[index]['cpu'] < 60){
+                    $('#cpu').css({'background':'#66cdaa'})
+                  }
+                  else if(details[index]['cpu'] >= 60 && detail[index]['cpu'] < 85){
+                    $('#cpu').css({'background':'#df4f15'})
+                  }       
+                  else if(details[index]['cpu'] >= 85 && detail[index]['cpu'] <= 100){
+                    $('#cpu').css({'background':'#f44336'})
+                  }
+ -->
         </ul>
       </div><!-- left -->
 
@@ -16,22 +31,20 @@
         <div class="card-panel col s12 m10 l12" id="center">
           <div class="col-xs-4">
             <div class="panel panel-default">
-
               <div class="panel-heading">
                 <h4 class="panel-title"><span class="blue-text text-darken-2">Internet Traffic (Switch SW4503)</span></h4>
               </div>
-
               <canvas id="myLineChart" class="chart"></canvas>
               <ul class="collection" id="net-traff-txt">
-                <ul class="collection col s3 m3 l2" id="div-all">
-                      <li class="collection" id="inbound"><center><b>Inbound</b></center></li>
-                      <li class="collection" id="outbound"><center><b>Outbound</b></center></li>
-                  </ul>
-                  <ul class="collection col s9 m9 l10" >
-                      <li class="collection-item" id="div-in"></li>
-                      <li class="collection-item" id="div-out"></li>
-                  </ul>
+                <ul class="collection col s12 m5 l4" id="div-all">
+                  <li class="collection" id="inbound"><center><b>Inbound</b></center></li>
+                  <li class="collection" id="outbound"><center><b>Outbound</b></center></li>
                 </ul>
+                <ul class="collection col s12 m7 l8" >
+                  <li class="collection-item" id="div-in"></li>
+                  <li class="collection-item" id="div-out"></li>
+                </ul>
+              </ul>
             </div>
           </div> 
         </div>
@@ -43,12 +56,10 @@
                 <h4 class="panel-title"><span class="blue-text text-darken-2">Traffic Ratio</span></h4>
               </div>
               <div class="panel-content text-center">
-                  <canvas id="myDonutChart" class="chart"></canvas>
+                <canvas id="myDonutChart" class="chart"></canvas>
               </div>
-
               <ul class="collection" id="ratio-txt">
-              
-              <ul class="collection col s6 m9 l4" id="ul-bel">
+              <ul class="collection col s9 m8 l5" id="ul-bel">
                   <li class="collection" id="bel-SW4503"><center>
                     <b class="grey-text text-lighten-5">SW4503</b></center>
                   </li>
@@ -59,12 +70,12 @@
                     <b class="grey-text text-lighten-5">R330A</b></center>
                   </li>
               </ul>
-              <ul class="collection col s6 m9 l8" >
+              <ul class="collection col s9 m7 l5" id="txt">
                   <li class="collection txt-ratio" id="txt-SW4503"></li>
                   <li class="collection txt-ratio" id="txt-R124"></li>
                   <li class="collection txt-ratio" id="txt-R330A"></li>
               </ul>
-              <ul class="collection col s6 m9 l4" id="ul-bel">
+              <ul class="collection col s9 m8 l5" id="ul-bel">
                   <li class="collection" id="bel-R401"><center>
                     <b class="grey-text text-lighten-5">Rshop</b></center>
                   </li>
@@ -74,8 +85,8 @@
                   <li class="collection" id="bel-R101C"><center>
                     <b class="grey-text text-lighten-5">R101C</b></center>
                   </li>
-              </ul>
-              <ul class="collection col s6 m9 l3" >
+              </ul> 
+              <ul class="collection col s7 m8 l4" id="txt">
                   <li class="collection txt-ratio" id="txt-R401"></li>
                   <li class="collection txt-ratio" id="txt-R415"></li>
                   <li class="collection txt-ratio" id="txt-R101C"></li>
@@ -94,7 +105,7 @@ export default {
   name: 'interface',
   mounted: function () {
       this.getSheet()
-      //setInterval(this.getSheet, 1000 * 10 * 3) 
+      setInterval(this.getSheet, 1000 * 10 * 5) 
   },
   data () {
     return {
@@ -324,9 +335,9 @@ export default {
 <style type="text/css">
       html { font-family: GillSans, Calibri, Trebuchet, sans-serif;}  
     .parallax-container {
-    height: "your height here"; 
+       height: "your height here"; 
       }
-      #top{
+    #top{
       height: 50px;   
     }
     #left{
@@ -344,10 +355,10 @@ export default {
       position:relative;
       height: 150px;    
     }
-    #trafficeSw4503{
+ /*   #trafficeSw4503{
       position:relative;
       width: 100%;    
-    }
+    }*/
     #countries{
       position:relative;
       width: 100%;
@@ -384,15 +395,16 @@ export default {
     }
     #ul-bel{
       border: 0px solid #FFFFFF;
-      margin: 0.5rem 0 0rem 0; 
+      margin: 0.5rem 0 0rem 2rem; 
     }
     #net-traff-txt{
       border: 0px solid #FFFFFF;
+      margin-left: 10px;
     }
     #txt-ratio{
       border: 0px solid #FFFFFF;
       padding: 0;
-      width: 75px;
+      
     }
     .collection{
       border: 0px solid #FFFFFF;
@@ -402,9 +414,6 @@ export default {
     body{
         background-color: #f5f5f5;
     }
-    .collection.txt-ratio{
-      width: 80px;
-    }
     #div-in {
       border: 0px solid #FFFFFF;
     }
@@ -412,7 +421,23 @@ export default {
       border: 0px solid #FFFFFF;
     }
     .collection-item {
-      margin-bottom: 0px;
+      margin-right: 40px;
       margin-top: 0px;
     }
+   #collection-sol{
+     padding: 20px;
+   }
+   #txt{
+    margin-right: 0;
+   }
+   #cpu{
+    padding: 2px;    
+    border-radius:5px;
+    width: 7px;
+   }
+   #temp{
+    padding: 2px;    
+    border-radius:5px;
+    /*width: 10%;*/
+   }
 </style>
