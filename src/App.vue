@@ -1,18 +1,18 @@
 <template>
 
-  <div id="app" style="width=100vw;height:100vh;">
-   <headtab></headtab>
+  <div id="app">
+   <Navbar></Navbar>
     <router-view></router-view>
   </div>
 
 </template>
 <script>
 
-import headtab from '@/components/tab'
+import Navbar from '@/components/navbar'
 /*eslint-disable */
 export default {
   name: 'app',
-  components: { headtab }
+  components: { Navbar }
 }
 
 </script>

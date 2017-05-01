@@ -4,19 +4,20 @@
   <div class="columns is-mobile">
     <div class="column is-2">
       <div class="box">
-        <article class="media" v-for="index in detail">
+        <a><article class="media" v-for="index in detail">
           <div class="media-left">
-                <strong>{{index.name}}</strong>{{index.ip}}
-                <br>
-                <span class="icon"><i class="fa fa-microchip" aria-hidden="true" style="color:#40e2bd;"></i></span>
-                <strong class="is-6">Cpu:</strong>{{index.cpu}}% <br>
-                <span class="icon"><i class="fa fa-thermometer" aria-hidden="true" style="color:#66bdef;"></i></span>
-                <strong>Temp:</strong> {{index.temp}}F             
+            <figure class="image is-48x48">
+              <img src="../img/switch-hub.png" alt="Image">
+            </figure>
           </div>
-        </article>
-
-      </div>
+          <div class="media-content">
+            <div class="content">
+                <strong>{{index.name}}</strong> <small>{{index.ip}}</small> 
+            </div>
+          </div>
+        </article></a>
     </div>
+  </div>
 
     <div class="column is-half">
       <div class="box">
@@ -55,7 +56,7 @@
 /*eslint-disable */
 import axios from 'axios'
 export default {
-  name: 'dashboard',
+  name: 'device',
   mounted: function () {
     this.getSheet()
     console.log(this.dataPieChart)
@@ -63,8 +64,7 @@ export default {
   data () {
     return {
       urlDetail: "https://apisheet.herokuapp.com/1Q6az-EGPMD-bKYa80NcOTIhAO9Jr2JFlYR9VxIZmB7Y/sheet1!A:C",
-      urlSw4503: "https://apisheet.herokuapp.com/1Oykec18xewJw68XbG3xzJ3DU1N3mMqf6l7jBUwZ58Zs/sheet1!A:C",
-      urlRatio: "https://apisheet.herokuapp.com/1o1XNXtyEcKHbkh326ofZN3yQFrOFgSTW44GCro_c_Zs/sheet1!A:C",
+      urlDevice: "https://apisheet.herokuapp.com/1NMm2wWvoWD9GPzXzSU9jtJBLURyl3N0Nki3XOe4AovM/sheet1!A:C",
       inbound: [],
       outbound: [],
       averagein: '',
@@ -115,7 +115,7 @@ export default {
           this.detail = JSON.parse(values[length][2])
           console.log('urlDetail',this.detail )
       })
-      axios.get(this.urlSw4503).then(res => {
+      axios.get(this.urlDevice).then(res => {
           let values = res.data.values
           let length  = values.length-12
 
@@ -164,110 +164,7 @@ export default {
           $('#div-out').css({'background': 'rgba(255,161,181,1)'})
           this.Chartdata = new Chart(document.getElementById("myLineChart").getContext("2d")).Line(data_lineChart, this.options) 
 
-/*    let divIn = "<b>Min :</b>"+this.minin+" <b> Max :</b>"+this.maxin+" <b> Average:</b>"+ this.averagein,
-        divOut = "<b>Min :</b>"+this.minout+" <b> Max :</b>"+this.maxout+" <b> Average:</b>"+ this.averageout;
-
-    $('#div-in').html(divIn)
-    $('#div-out').html(divOut)*/
-   
       })   
-  
-      //***************** Data Pie Chart***********************
-      axios.get(this.urlRatio).then(res => {
-       let values = res.data.values
-          let length  = values.length-1
-          let ratioArr = JSON.parse(values[length][2]) 
-          
-      for (let index in ratioArr) {
-        for (let ip in ratioArr[index]) {
-          let unit = ratioArr[index][ip].substring(ratioArr[index][ip].search(" ") ,ratioArr[index][ip].length)
-          console.log(unit)
-          if (ip == '10.77.1.2') {
-            let val = Number(ratioArr[index][ip].substring(0,ratioArr[index][ip].search(" "))).toFixed(2)
-            let json = {
-              value: val,
-                color:"#F7464A",
-                highlight: "#FF5A5E",
-                label: "R124 :"
-            }
-            this.dataPieChart.push(json)
-            this.data.push(val+unit)
-            $('#bel-R124').css({'background': '#F7464A'})
-            $('#txt-R124').html(val+unit)
-          }
-          else if (ip == '10.77.7.2') {
-            let val = Number(ratioArr[index][ip].substring(0,ratioArr[index][ip].search(" "))).toFixed(2) 
-            let json = {
-                value:val,
-                color: "#46BFBD",
-                highlight: "#5AD3D1",
-                label: "R101C :"
-            }
-            this.dataPieChart.push(json)
-            this.data.push(val+unit)
-            $('#bel-R101C').css({'background': '#46BFBD'}) 
-            $('#txt-R101C').html(val+unit)
-
-          }
-          else if (ip == '10.77.3.2') {
-            let val = Number(ratioArr[index][ip].substring(0,ratioArr[index][ip].search(" "))).toFixed(2) 
-            let json = {
-                value: val,
-                color: "#FDB45C",
-                highlight: "#FFC870",
-                label: "R330A :"
-              }
-            this.dataPieChart.push(json)
-            this.data.push(val+unit)
-            $('#bel-R330A').css({'background': '#FDB45C'}) 
-            $('#txt-R330A').html(val+unit)
-          }
-          else if (ip == '10.77.8.2') {
-            let val = Number(ratioArr[index][ip].substring(0,ratioArr[index][ip].search(" "))).toFixed(2)
-            let json = {
-                value: val,
-                color: "#949FB1",
-                highlight: "#A8B3C5",
-                label: "Rshop :"
-              }
-            this.dataPieChart.push(json) 
-            this.data.push(val+unit)
-            $('#bel-R401').css({'background': '#949FB1'})
-            $('#txt-R401').html(val+unit)
-          }
-          else if (ip == '10.77.5.2') {
-            let val = Number(ratioArr[index][ip].substring(0,ratioArr[index][ip].search(" "))).toFixed(2)
-            let json =  {
-                value: val,
-                color: "#4D5360",
-                highlight: "#616774",
-                label: "R415 :"
-              }
-            this.dataPieChart.push(json)
-            this.data.push(val+unit)
-            $('#bel-R415').css({'background': '#4D5360'})   
-            $('#txt-R415').html(val+unit)
-          }
-          else if (ip == '10.77.4.1') {
-            let val = Number(ratioArr[index][ip].substring(0,ratioArr[index][ip].search(" "))).toFixed(2)
-            let json =  {
-                value: val,
-                color: "#0066FF",
-                highlight: "#0066FF",
-                label: "SW4503 :"
-              }
-            this.dataPieChart.push(json)
-            this.data.push(val+unit)
-            $('#bel-SW4503').css({'background': '#0066FF'})
-            $('#txt-SW4503').html(val+unit)
-          }
-        }
-                  
-      }//for
-      
-      this.ChartDonut = new Chart(document.getElementById("myDonutChart").getContext("2d")).Doughnut(this.dataPieChart, this.options)
-
-      })
     }//function
     
 
@@ -281,4 +178,8 @@ export default {
     width: 50%;
     color: #fff;
   }
+  a:hover {
+    color: red;
+  }
+
 </style>

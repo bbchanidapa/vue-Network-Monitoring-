@@ -1,14 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import dashboard from '@/components/dashboard'
+import Dashboard from '@/components/Dashboard'
+import Device from '@/components/Device'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'dashboard',
-      component: dashboard
+      name: 'Dashboard',
+      component: Dashboard
+    },
+    {
+      path: '/Device',
+      name: 'Device',
+      component: Device
     }
   ]
 })
